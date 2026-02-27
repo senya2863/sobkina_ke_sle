@@ -1,0 +1,5 @@
+if(EXISTS "/home/ksenya/sobkina_ke_sle/tridiagonal/build/DiagThreeTest[1]_tests.cmake")
+  include("/home/ksenya/sobkina_ke_sle/tridiagonal/build/DiagThreeTest[1]_tests.cmake")
+else()
+  add_test(DiagThreeTest_NOT_BUILT DiagThreeTest_NOT_BUILT)
+endif()

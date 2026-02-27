@@ -1,0 +1,2 @@
+/usr/bin/ar qc libDiagThree.a CMakeFiles/DiagThree.dir/src/tridiagonal.cpp.o
+/usr/bin/ranlib libDiagThree.a

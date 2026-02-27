@@ -1,0 +1,30 @@
+Start testing: Feb 27 17:38 MSK
+----------------------------------------------------------
+1/1 Testing: progonka.bebebe
+1/1 Test: progonka.bebebe
+Command: "/home/ksenya/sobkina_ke_sle/tridiagonal/build/DiagThreeTest" "--gtest_filter=progonka.bebebe" "--gtest_also_run_disabled_tests"
+Directory: /home/ksenya/sobkina_ke_sle/tridiagonal/build
+"progonka.bebebe" start time: Feb 27 17:38 MSK
+Output:
+----------------------------------------------------------
+Running main() from /builddir/build/BUILD/gtest-1.15.2-build/googletest-1.15.2/googletest/src/gtest_main.cc
+Note: Google Test filter = progonka.bebebe
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from progonka
+[ RUN      ] progonka.bebebe
+[       OK ] progonka.bebebe (0 ms)
+[----------] 1 test from progonka (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"progonka.bebebe" end time: Feb 27 17:38 MSK
+"progonka.bebebe" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Feb 27 17:38 MSK
