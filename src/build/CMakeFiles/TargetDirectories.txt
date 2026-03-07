@@ -1,0 +1,3 @@
+/home/ksenya/sobkina_ke_sle/src/build/CMakeFiles/MatrixTest.dir
+/home/ksenya/sobkina_ke_sle/src/build/CMakeFiles/edit_cache.dir
+/home/ksenya/sobkina_ke_sle/src/build/CMakeFiles/rebuild_cache.dir

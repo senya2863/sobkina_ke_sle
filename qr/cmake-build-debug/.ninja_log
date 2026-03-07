@@ -1,0 +1,11 @@
+# ninja log v6
+12	241	1772892308525060938	CMakeFiles/qr.dir/main.cpp.o.ddi	3a6540afe9efdea8
+242	248	1772892308761777853	CMakeFiles/qr.dir/CXX.dd	b0380e31b7595e69
+242	248	1772892308761777853	/home/ksenya/sobkina_ke_sle/qr/cmake-build-debug/CMakeFiles/qr.dir/CXXModules.json	b0380e31b7595e69
+242	248	1772892308761777853	CMakeFiles/qr.dir/main.cpp.o.modmap	b0380e31b7595e69
+3	180	1772892577998505871	CMakeFiles/qr.dir/main.cpp.o.ddi	3a6540afe9efdea8
+180	187	1772892578175507030	CMakeFiles/qr.dir/CXX.dd	b0380e31b7595e69
+180	187	1772892578175507030	/home/ksenya/sobkina_ke_sle/qr/cmake-build-debug/CMakeFiles/qr.dir/CXXModules.json	b0380e31b7595e69
+180	187	1772892578175507030	CMakeFiles/qr.dir/main.cpp.o.modmap	b0380e31b7595e69
+187	1209	1772892578182507076	CMakeFiles/qr.dir/main.cpp.o	c9013c1360333c2e
+1210	1278	1772892579205692743	qr	7ecdc4934792aa74

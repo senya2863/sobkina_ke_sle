@@ -1,0 +1,5 @@
+/home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug/CMakeFiles/DiagThree.dir
+/home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug/CMakeFiles/DiagThreeTest.dir
+/home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug/CMakeFiles/test.dir
+/home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug/CMakeFiles/rebuild_cache.dir

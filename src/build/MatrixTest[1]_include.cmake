@@ -1,0 +1,5 @@
+if(EXISTS "/home/ksenya/sobkina_ke_sle/src/build/MatrixTest[1]_tests.cmake")
+  include("/home/ksenya/sobkina_ke_sle/src/build/MatrixTest[1]_tests.cmake")
+else()
+  add_test(MatrixTest_NOT_BUILT MatrixTest_NOT_BUILT)
+endif()

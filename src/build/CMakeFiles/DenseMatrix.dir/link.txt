@@ -1,0 +1,2 @@
+/usr/bin/ar qc libDenseMatrix.a CMakeFiles/DenseMatrix.dir/src/dense.cpp.o
+/usr/bin/ranlib libDenseMatrix.a
