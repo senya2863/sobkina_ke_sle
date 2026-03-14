@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <chrono>
+#include <fstream>
 
 //sparse
 struct el
@@ -32,28 +33,31 @@ double norm(const std::vector<double>& a, const std::vector<double>& b)
 }
 
 //easy method
-int mpi(const sparse &A, const std::vector<double> &b, std::vector<double> &x, int max_iter, double eps, double t) {
-    int n= A.n;
-    std:: vector<double> x_new(n);
+int mpi(const sparse&A, const std::vector<double>& b, std::vector<double>& x,int max_iter, double eps, double tau, std::vector<double>& errors)
+{
+    int n = A.n;
+    std::vector<double> x_new(n, 0.0);
 
-    for (int iter =0; iter<max_iter; iter++) {
-        for (int i = 0; i < n; i++) {
+    for (int iter=0; iter<max_iter; iter++) {
+        for (int i=0; i<n; i++) {
             double Ax=0.0;
-            for (const el &e: A.rows[i]) {
-                Ax += e.value * x[e.col];
-
+            for (const el &e : A.rows[i]) {
+                if (e.col >= 0 && e.col < n)
+                    Ax += e.value * x[e.col];
             }
-            x_new[i]=x[i]+t*(b[i] - Ax);
+            x_new[i] = x[i] + tau*(b[i]-Ax);
         }
-        if (norm(x_new, x) < eps)
-            return iter + 1;
+        double err = norm(x_new, x);
+        errors.push_back(err);
+
+        if (err < eps) return iter+1;
         x = x_new;
     }
     return max_iter;
 }
 
 //jacobi
-int jacobi (const sparse&A, const std::vector<double>& b, std::vector<double>& x,  int max_iter, double eps) {
+int jacobi (const sparse&A, const std::vector<double>& b, std::vector<double>& x,  int max_iter, double eps, std::vector<double> &errors) {
     int n= A.n;
 
     std:: vector<double> x_new(n);
@@ -63,6 +67,7 @@ int jacobi (const sparse&A, const std::vector<double>& b, std::vector<double>& x
             double sum = 0.0;
             double diag = 0.0;
             for (const el &e: A.rows[i]) {
+                if (e.col >= n) continue;
                 if (e.col == i) {
                     diag = e.value;
                 }
@@ -72,6 +77,9 @@ int jacobi (const sparse&A, const std::vector<double>& b, std::vector<double>& x
             }
             x_new[i]=(b[i]-sum)/diag;
         }
+        double err = norm(x_new, x);
+        errors.push_back(err);
+
         if (norm(x_new,x)<eps) {
             return iter+1;
         }
@@ -81,7 +89,7 @@ int jacobi (const sparse&A, const std::vector<double>& b, std::vector<double>& x
 }
 
 //gauss
-int gauss (const sparse&A, const std::vector<double>& b, std::vector<double>& x, int max_iter, double eps) {
+int gauss (const sparse&A, const std::vector<double>& b, std::vector<double>& x, int max_iter, double eps, std::vector<double> &errors) {
     int n= A.n;
 
     for (int iter =0; iter<max_iter; iter++) {
@@ -90,6 +98,7 @@ int gauss (const sparse&A, const std::vector<double>& b, std::vector<double>& x,
             double sum = 0.0;
             double diag = 0.0;
             for (const el &e: A.rows[i]) {
+                if (e.col >= n) continue;
                 if (e.col == i) {
                     diag = e.value;
                 }
@@ -99,6 +108,9 @@ int gauss (const sparse&A, const std::vector<double>& b, std::vector<double>& x,
             }
             x[i]=(b[i]-sum)/diag;
         }
+        double err = norm(x, old);
+        errors.push_back(err);
+
         if (norm(x,old)<eps) {
             return iter+1;
         }
@@ -109,49 +121,50 @@ int gauss (const sparse&A, const std::vector<double>& b, std::vector<double>& x,
 int main()
 {
     sparse A;
-    A.n = 3;
+    A.n=3;
     A.rows.resize(3);
+    A.rows[0] = {{0,4},{1,-1}};
+    A.rows[1] = {{0,-1},{1,4},{2,-1}};
+    A.rows[2] = {{1,-1},{2,3}};
 
-    A.rows[0] = {{0, 4}, {1, -1}};
-    A.rows[1] = {{0, -1}, {1, 4}, {2, -1}};
-    A.rows[2] = {{1, -1}, {2, 3}};
+    std::vector<double> b = {15,10,10};
+    int max_iter=100;
+    double eps=1e-6;
+    double tau=0.1;
 
-    std::vector<double> b = {15, 10, 10};
+    std::vector<double> x_jacobi(A.n,0.0);
+    std::vector<double> x_gauss(A.n,0.0);
+    std::vector<double> x_mpi(A.n,0.0);
+    std::vector<double> err_jacobi, err_gauss, err_mpi;
 
-    double eps = 1e-6;
-    int max_iter = 10000;
+    auto start = std::chrono::high_resolution_clock::now();
+    int iter_jacobi = jacobi(A,b,x_jacobi,max_iter,eps,err_jacobi);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> t_jacobi = end-start;
 
-    std::vector<double> x_jacobi(3, 0.0);
-    std::vector<double> x_gauss(3, 0.0);
-    std::vector<double> x_mpi(3, 0.0);
+    start = std::chrono::high_resolution_clock::now();
+    int iter_gauss = gauss(A,b,x_gauss,max_iter,eps,err_gauss);
+    end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> t_gauss = end-start;
 
-    auto start1 = std::chrono::high_resolution_clock::now();
-    int iter_jacobi = jacobi(A, b, x_jacobi, max_iter, eps);
-    auto end1 = std::chrono::high_resolution_clock::now();
+    start = std::chrono::high_resolution_clock::now();
+    int iter_mpi = mpi(A,b,x_mpi,max_iter,eps,tau,err_mpi);
+    end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> t_mpi = end-start;
 
-    auto start2 = std::chrono::high_resolution_clock::now();
-    int iter_gauss = gauss(A, b, x_gauss, max_iter, eps);
-    auto end2 = std::chrono::high_resolution_clock::now();
+    std::cout << "Jacobi iterations: " << iter_jacobi << ", time: " << t_jacobi.count() << " s\n";
+    std::cout << "Gauss-Seidel iterations: " << iter_gauss << ", time: " << t_gauss.count() << " s\n";
+    std::cout << "MPI iterations: " << iter_mpi << ", time: " << t_mpi.count() << " s\n";
 
-    auto start3 = std::chrono::high_resolution_clock::now();
-    int iter_mpi = mpi(A, b, x_mpi, max_iter, eps, 0.1);
-    auto end3 = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> t_jacobi = end1 - start1;
-    std::chrono::duration<double> t_gauss = end2 - start2;
-    std::chrono::duration<double> t_mpi = end3 - start3;
-
-    std::cout << "jacobi iterations: " << iter_jacobi << "\n";
-    std::cout << "jacobi time: " << t_jacobi.count() << " s\n\n";
-
-    std::cout << "gauss iterations: " << iter_gauss << "\n";
-    std::cout << "gauss time: " << t_gauss.count() << " s\n\n";
-
-    std::cout << "mpi iterations: " << iter_mpi << "\n";
-    std::cout << "mpi time: " << t_mpi.count() << " s\n";
+    std::ofstream fout("convergence.csv");
+    fout << "Iter,Jacobi,GaussSeidel,MPI\n";
+    for (size_t i=0; i<err_jacobi.size(); i++)
+        fout << i+1 << "," << err_jacobi[i] << "," << err_gauss[i] << "," << err_mpi[i] << "\n";
+    fout.close();
 
     return 0;
 }
+
 // TIP See CLion help at <a
 // href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
 //  Also, you can try interactive lessons for CLion by selecting

@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MatrixTest
+# Target rules for targets named matrix_test
 
 # Build rule for target.
-MatrixTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MatrixTest
-.PHONY : MatrixTest
+matrix_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrix_test
+.PHONY : matrix_test
 
 # fast build rule for target.
-MatrixTest/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/build
-.PHONY : MatrixTest/fast
+matrix_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/build
+.PHONY : matrix_test/fast
 
 src/csr.o: src/csr.cpp.o
 .PHONY : src/csr.o
 
 # target to build an object file
 src/csr.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/csr.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/csr.cpp.o
 .PHONY : src/csr.cpp.o
 
 src/csr.i: src/csr.cpp.i
@@ -142,7 +142,7 @@ src/csr.i: src/csr.cpp.i
 
 # target to preprocess a source file
 src/csr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/csr.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/csr.cpp.i
 .PHONY : src/csr.cpp.i
 
 src/csr.s: src/csr.cpp.s
@@ -150,7 +150,7 @@ src/csr.s: src/csr.cpp.s
 
 # target to generate assembly for a file
 src/csr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/csr.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/csr.cpp.s
 .PHONY : src/csr.cpp.s
 
 src/dense.o: src/dense.cpp.o
@@ -158,7 +158,7 @@ src/dense.o: src/dense.cpp.o
 
 # target to build an object file
 src/dense.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/dense.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/dense.cpp.o
 .PHONY : src/dense.cpp.o
 
 src/dense.i: src/dense.cpp.i
@@ -166,7 +166,7 @@ src/dense.i: src/dense.cpp.i
 
 # target to preprocess a source file
 src/dense.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/dense.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/dense.cpp.i
 .PHONY : src/dense.cpp.i
 
 src/dense.s: src/dense.cpp.s
@@ -174,32 +174,56 @@ src/dense.s: src/dense.cpp.s
 
 # target to generate assembly for a file
 src/dense.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/dense.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/dense.cpp.s
 .PHONY : src/dense.cpp.s
 
-src/matrix_test.o: src/matrix_test.cpp.o
-.PHONY : src/matrix_test.o
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
 
 # target to build an object file
-src/matrix_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/matrix_test.cpp.o
-.PHONY : src/matrix_test.cpp.o
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-src/matrix_test.i: src/matrix_test.cpp.i
-.PHONY : src/matrix_test.i
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/matrix_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/matrix_test.cpp.i
-.PHONY : src/matrix_test.cpp.i
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-src/matrix_test.s: src/matrix_test.cpp.s
-.PHONY : src/matrix_test.s
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/matrix_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixTest.dir/build.make CMakeFiles/MatrixTest.dir/src/matrix_test.cpp.s
-.PHONY : src/matrix_test.cpp.s
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+src/vector_ops.o: src/vector_ops.cpp.o
+.PHONY : src/vector_ops.o
+
+# target to build an object file
+src/vector_ops.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/vector_ops.cpp.o
+.PHONY : src/vector_ops.cpp.o
+
+src/vector_ops.i: src/vector_ops.cpp.i
+.PHONY : src/vector_ops.i
+
+# target to preprocess a source file
+src/vector_ops.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/vector_ops.cpp.i
+.PHONY : src/vector_ops.cpp.i
+
+src/vector_ops.s: src/vector_ops.cpp.s
+.PHONY : src/vector_ops.s
+
+# target to generate assembly for a file
+src/vector_ops.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_test.dir/build.make CMakeFiles/matrix_test.dir/src/vector_ops.cpp.s
+.PHONY : src/vector_ops.cpp.s
 
 # Help Target
 help:
@@ -209,16 +233,19 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... MatrixTest"
+	@echo "... matrix_test"
 	@echo "... src/csr.o"
 	@echo "... src/csr.i"
 	@echo "... src/csr.s"
 	@echo "... src/dense.o"
 	@echo "... src/dense.i"
 	@echo "... src/dense.s"
-	@echo "... src/matrix_test.o"
-	@echo "... src/matrix_test.i"
-	@echo "... src/matrix_test.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/vector_ops.o"
+	@echo "... src/vector_ops.i"
+	@echo "... src/vector_ops.s"
 .PHONY : help
 
 

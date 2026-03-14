@@ -3,8 +3,12 @@ project(MatrixProject)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(MatrixTest
+
+include_directories(include)
+
+add_executable(matrix_test
+        src/main.cpp
         src/dense.cpp
         src/csr.cpp
-        src/matrix_test.cpp
+        src/vector_ops.cpp
 )

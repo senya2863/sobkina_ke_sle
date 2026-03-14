@@ -1,0 +1,3 @@
+/home/ksenya/sobkina_ke_sle/mpi_gauss_jacobi/build/CMakeFiles/mpi_gauss_jacobi.dir
+/home/ksenya/sobkina_ke_sle/mpi_gauss_jacobi/build/CMakeFiles/edit_cache.dir
+/home/ksenya/sobkina_ke_sle/mpi_gauss_jacobi/build/CMakeFiles/rebuild_cache.dir
