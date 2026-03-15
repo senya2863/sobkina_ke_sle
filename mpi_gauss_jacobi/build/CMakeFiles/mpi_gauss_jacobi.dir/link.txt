@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/mpi_gauss_jacobi.dir/link.d CMakeFiles/mpi_gauss_jacobi.dir/main.cpp.o -o mpi_gauss_jacobi

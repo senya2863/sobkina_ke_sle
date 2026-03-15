@@ -1,2 +1,0 @@
-/usr/bin/ar qc libCSRMatrix.a CMakeFiles/CSRMatrix.dir/src/csr.cpp.o
-/usr/bin/ranlib libCSRMatrix.a

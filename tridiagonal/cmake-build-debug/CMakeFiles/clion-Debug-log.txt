@@ -1,4 +1,0 @@
-/home/ksenya/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /home/ksenya/sobkina_ke_sle/tridiagonal -B /home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug
--- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/ksenya/sobkina_ke_sle/tridiagonal/cmake-build-debug

@@ -1,3 +1,0 @@
-/home/ksenya/sobkina_ke_sle/qr/cmake-build-debug/CMakeFiles/qr.dir
-/home/ksenya/sobkina_ke_sle/qr/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ksenya/sobkina_ke_sle/qr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
