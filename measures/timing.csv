@@ -1,0 +1,5 @@
+Method,Iterations,Time_ms
+MPI,1000,49.7313
+Jacobi,1000,28.3736
+GaussSeidel,911,24.5776
+Chebyshev,346,19.5972

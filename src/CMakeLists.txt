@@ -18,3 +18,7 @@ target_link_libraries(qr PRIVATE MatrixLib)
 # Итерационные методы: Jacobi / Gauss-Seidel / простая итерация
 add_executable(gauss_jacobi gauss_jacobi.cpp)
 target_link_libraries(gauss_jacobi PRIVATE MatrixLib)
+
+#ДЗ 5: Чебышев и сравнение методов
+add_executable(compare_methods compare_methods.cpp chebyshev_mpi.cpp)
+target_link_libraries(compare_methods PRIVATE MatrixLib)
