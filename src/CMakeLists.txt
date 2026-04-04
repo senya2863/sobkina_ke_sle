@@ -22,3 +22,9 @@ target_link_libraries(gauss_jacobi PRIVATE MatrixLib)
 #ДЗ 5: Чебышев и сравнение методов
 add_executable(compare_methods compare_methods.cpp chebyshev_mpi.cpp)
 target_link_libraries(compare_methods PRIVATE MatrixLib)
+
+#ДЗ 6
+# сравнение с симметризованными методами
+add_executable(compare_methods_2 compare_methods_2.cpp
+        symmetr_methods.cpp chebyshev_mpi.cpp)
+target_link_libraries(compare_methods_2 PRIVATE MatrixLib)
