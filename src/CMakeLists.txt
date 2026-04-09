@@ -28,3 +28,8 @@ target_link_libraries(compare_methods PRIVATE MatrixLib)
 add_executable(compare_methods_2 compare_methods_2.cpp
         symmetr_methods.cpp chebyshev_mpi.cpp)
 target_link_libraries(compare_methods_2 PRIVATE MatrixLib)
+
+# ДЗ №7: SOR, наискорейший спуск, CG
+add_executable(compare_hw7 compare_hw7.cpp
+        iterative_methods.cpp elliptic_generator.cpp)
+target_link_libraries(compare_hw7 PRIVATE MatrixLib)
