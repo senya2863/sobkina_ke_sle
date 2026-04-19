@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "iterative_methods.h"
 #include <algorithm>
 
@@ -24,7 +25,8 @@ double IterativeMethods::dot(const std::vector<double>& a, const std::vector<dou
     return sum;
 }
 
-std::vector<double> IterativeMethods::subtract(const std::vector<double>& a, const std::vector<double>& b) {
+std::vector<double> IterativeMethods::subtract(const std::vector<double>& a,
+                                                const std::vector<double>& b) {
     std::vector<double> result(a.size());
     for (size_t i = 0; i < a.size(); ++i) {
         result[i] = a[i] - b[i];
@@ -32,7 +34,8 @@ std::vector<double> IterativeMethods::subtract(const std::vector<double>& a, con
     return result;
 }
 
-int IterativeMethods::gaussSeidel(std::vector<double>& x, int max_iter, double eps, std::vector<double>& errors) {
+int IterativeMethods::gaussSeidel(std::vector<double>& x, int max_iter, double eps,
+                                   std::vector<double>& errors) {
     int n = A.n;
 
     for (int iter = 0; iter < max_iter; ++iter) {
@@ -59,7 +62,8 @@ int IterativeMethods::gaussSeidel(std::vector<double>& x, int max_iter, double e
     return max_iter;
 }
 
-int IterativeMethods::sor(std::vector<double>& x, int max_iter, double eps, std::vector<double>& errors, double omega) {
+int IterativeMethods::sor(std::vector<double>& x, int max_iter, double eps,
+                          std::vector<double>& errors, double omega) {
     int n = A.n;
 
     for (int iter = 0; iter < max_iter; ++iter) {
@@ -87,29 +91,45 @@ int IterativeMethods::sor(std::vector<double>& x, int max_iter, double eps, std:
     return max_iter;
 }
 
-int IterativeMethods::steepestDescent(std::vector<double>& x, int max_iter, double eps, std::vector<double>& errors) {
-    // r = b - Ax
-    std::vector<double> r = subtract(b, multiply(x));
+int IterativeMethods::steepestDescent(std::vector<double>& x, int max_iter, double eps,
+                                       std::vector<double>& errors) {
     int n = x.size();
+
+    // r = b - Ax (начальная невязка)
+    std::vector<double> r = subtract(b, multiply(x));
+
+    // Записываем начальную ошибку
+    double initial_err = 0.0;
+    for (int i = 0; i < n; ++i) {
+        initial_err += r[i] * r[i];
+    }
+    initial_err = std::sqrt(initial_err);
+    errors.push_back(initial_err);
+
+    if (initial_err < eps) return 0;
 
     for (int iter = 0; iter < max_iter; ++iter) {
         std::vector<double> old_x = x;
         std::vector<double> Ar = multiply(r);
 
         // alpha = (r, r) / (r, Ar)
-        double alpha = dot(r, r) / dot(r, Ar);
+        double r_dot_r = dot(r, r);
+        double alpha = r_dot_r / dot(r, Ar);
 
         // x = x + alpha * r
         for (int i = 0; i < n; ++i) {
-            x[i] = x[i] + alpha * r[i];
+            x[i] += alpha * r[i];
         }
 
+        // Новая невязка r = b - Ax
         r = subtract(b, multiply(x));
 
+        // === ОШИБКА = норма невязки ===
         double err = 0.0;
         for (int i = 0; i < n; ++i) {
-            err = std::max(err, std::abs(x[i] - old_x[i]));
+            err += r[i] * r[i];
         }
+        err = std::sqrt(err);
         errors.push_back(err);
 
         if (err < eps) return iter + 1;
@@ -117,33 +137,50 @@ int IterativeMethods::steepestDescent(std::vector<double>& x, int max_iter, doub
     return max_iter;
 }
 
-int IterativeMethods::conjugateGradient(std::vector<double>& x, int max_iter, double eps, std::vector<double>& errors) {
-    // r = b - Ax
-    std::vector<double> r = subtract(b, multiply(x));
-    std::vector<double> p = r;  // d₀ = r₀
-    double rs_old = dot(r, r);
+int IterativeMethods::conjugateGradient(std::vector<double>& x, int max_iter, double eps,
+                                         std::vector<double>& errors) {
     int n = x.size();
 
-    for (int iter = 0; iter < max_iter; ++iter) {
-        std::vector<double> old_x = x;
-        std::vector<double> Ap = multiply(p);
+    // r = b - Ax
+    std::vector<double> r = subtract(b, multiply(x));
+    std::vector<double> p = r;
+    double rs_old = dot(r, r);
 
-        // alpha = (r, r) / (p, Ap)
-        double alpha = rs_old / dot(p, Ap);
+    // Записываем начальную ошибку = норма невязки
+    double err = std::sqrt(rs_old);
+    errors.push_back(err);
+
+    // Если уже сошлись
+    if (err < eps) return 0;
+
+    for (int iter = 0; iter < max_iter; ++iter) {
+        std::vector<double> Ap = multiply(p);
+        double pAp = dot(p, Ap);
+
+        if (std::abs(pAp) < 1e-15) {
+            break;  // защита от деления на 0
+        }
+
+        double alpha = rs_old / pAp;
 
         // x = x + alpha * p
         for (int i = 0; i < n; ++i) {
-            x[i] = x[i] + alpha * p[i];
+            x[i] += alpha * p[i];
         }
 
         // r = r - alpha * Ap
         for (int i = 0; i < n; ++i) {
-            r[i] = r[i] - alpha * Ap[i];
+            r[i] -= alpha * Ap[i];
         }
 
         double rs_new = dot(r, r);
 
-        // beta = (r_new, r_new) / (r_old, r_old)
+        // === ОШИБКА = норма невязки ===
+        err = std::sqrt(rs_new);
+        errors.push_back(err);
+
+        if (err < eps) return iter + 1;
+
         double beta = rs_new / rs_old;
         rs_old = rs_new;
 
@@ -151,11 +188,6 @@ int IterativeMethods::conjugateGradient(std::vector<double>& x, int max_iter, do
         for (int i = 0; i < n; ++i) {
             p[i] = r[i] + beta * p[i];
         }
-
-        double err = std::sqrt(rs_new);
-        errors.push_back(err);
-
-        if (err < eps) return iter + 1;
     }
     return max_iter;
 }

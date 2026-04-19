@@ -33,3 +33,7 @@ target_link_libraries(compare_methods_2 PRIVATE MatrixLib)
 add_executable(compare_hw7 compare_hw7.cpp
         iterative_methods.cpp elliptic_generator.cpp)
 target_link_libraries(compare_hw7 PRIVATE MatrixLib)
+
+# ДЗ №8: GMRES
+add_executable(compare_hw8 compare_hw8.cpp gmres.cpp iterative_methods.cpp elliptic_generator.cpp)
+target_link_libraries(compare_hw8 PRIVATE MatrixLib)
