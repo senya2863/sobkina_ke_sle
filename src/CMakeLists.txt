@@ -37,3 +37,9 @@ target_link_libraries(compare_hw7 PRIVATE MatrixLib)
 # ДЗ №8: GMRES
 add_executable(compare_hw8 compare_hw8.cpp gmres.cpp iterative_methods.cpp elliptic_generator.cpp)
 target_link_libraries(compare_hw8 PRIVATE MatrixLib)
+
+# ДЗ №9: Уровни, неполное разложение Холецкого, предобуславливатель
+add_executable(compare_hw9 compare_hw9.cpp
+        level_matrix.cpp icholesky.cpp
+        iterative_methods.cpp elliptic_generator.cpp)
+target_link_libraries(compare_hw9 PRIVATE MatrixLib)
